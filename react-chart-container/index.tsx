@@ -9,9 +9,9 @@ const DELAY = 200
 export type GraphRef<GraphType> = MutableRefObject<GraphType | null>
 
 export interface Chart<GraphType, Data, Settings = undefined> {
-  init (element: HTMLDivElement, data: Data, settings: Settings): GraphType
-  resize (graphRef: GraphRef<GraphType>, data: Data, settings: Settings): void
-  update (graphRef: GraphRef<GraphType>, data: Data, settings: Settings): void
+  init (element: HTMLDivElement, data: Data, settings?: Settings): GraphType
+  resize (graphRef: GraphRef<GraphType>, data: Data, settings?: Settings): void
+  update (graphRef: GraphRef<GraphType>, data: Data, settings?: Settings): void
   destroy (graphRef: GraphRef<GraphType>, element: HTMLDivElement): void
 }
 
@@ -21,7 +21,7 @@ export interface Chart<GraphType, Data, Settings = undefined> {
 export const useReactChartContainer = <GraphType, Data, Settings = undefined>(
   chart: Chart<GraphType, Data, Settings>,
   data: Data,
-  settings: Settings
+  settings?: Settings
 ) => {
   const elRef = useRef(null)
   const graphRef: GraphRef<GraphType> = useRef(null)
