@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "irongeek.vscode-env",
+    "dbaeumer.vscode-eslint",
+    "styled-components.vscode-styled-components",
+    "wayou.vscode-todo-highlight"
+  ]
+}
