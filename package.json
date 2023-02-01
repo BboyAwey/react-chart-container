@@ -2,7 +2,7 @@
   "name": "@awey/react-chart-container",
   "description": "A chart container component that can be used to wrap various charts. It will handle 'init ', 'update', and 'resize' of chart appropriatly.",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -52,9 +52,9 @@
     "lib",
     "README.md"
   ],
-  "browser": "./lib/index.umd.js",
-  "main": "./lib/index.cjs.js",
-  "module": "./lib/index.es.js",
+  "browser": "./lib/index.umd.cjs",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "license": "MIT",
   "publishConfig": {
