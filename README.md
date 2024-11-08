@@ -15,6 +15,23 @@ If you render a chart on an element like div with some library like [ECharts](ht
 it's really annoying to do all the things.
 
 React Chart Container can help you with all the stuff above.
+## Installation
+
+React Chart Container can be installed by npm or yarn.
+
+```bash
+# yarn
+yarn add @awey/react-chart-container
+
+# npm
+npm install @awey/react-chart-container
+```
+
+And you should import the component, style and hook.
+```ts
+import { ReactChartContainer, useReactChartContainer } from '@awey/react-chart-container'
+import '@awey/react-chart-container/lib/style.css'
+```
 
 ## Usage
 
