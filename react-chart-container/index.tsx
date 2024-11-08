@@ -71,10 +71,11 @@ export const ReactChartContainer: FC<ReactChartContainerProps> = props => {
   // handle ready, only trigger ready once
   const onReady = useMemo(() => props.onReady, [props.onReady])
   useEffect(() => {
-    const container = ref.current
+    if (!ref.current) return
     later(() => {
+      if (!ref.current) return
       onReady instanceof Function && onReady(
-        container ? container.getBoundingClientRect() : { width: 0, height: 0 }
+        ref.current.getBoundingClientRect()
       )
     })
   }, [onReady])
@@ -82,16 +83,18 @@ export const ReactChartContainer: FC<ReactChartContainerProps> = props => {
   // handle resize
   const onResize = useMemo(() => props.onResize, [props.onResize])
   const handleResize = useCallback(() => {
-    const { width, height } = ref.current!.getBoundingClientRect()
+    if (!ref.current) return
+    const { width, height } = ref.current.getBoundingClientRect()
     onResize && onResize({ width, height })
   }, [onResize])
 
   // element resize listener, drag event will trigger element resize listener,
   useEffect(() => {
     const container = ref.current
-    addListener(container as HTMLDivElement, handleResize)
+    if (!container) return
+    addListener(container, handleResize)
     return () => {
-      removeListener(container as HTMLDivElement, handleResize)
+      removeListener(container, handleResize)
     }
   }, [handleResize])
 
@@ -99,7 +102,7 @@ export const ReactChartContainer: FC<ReactChartContainerProps> = props => {
   const [lastRect, setLastRect] = useState<[number, number]>([0, 0])
   useEffect(() => {
     if (!ref.current) return
-    const { width, height } = ref.current!.getBoundingClientRect()
+    const { width, height } = ref.current.getBoundingClientRect()
     if (width !== lastRect[0] || height !== lastRect[1]) {
       onResize && onResize({ width, height })
       setLastRect([width, height])
