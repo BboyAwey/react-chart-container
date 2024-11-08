@@ -12,6 +12,18 @@ dist
 dist-ssr
 *.local
 
+# Yarn PnP
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.cjs
+.pnp.loader.mjs
+.yarn/build-state.yml
+.yarn/cache
+.yarn/unplugged
+
 # Editor directories and files
 .idea
 .DS_Store
