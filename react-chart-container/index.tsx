@@ -108,7 +108,7 @@ export const ReactChartContainer: FC<ReactChartContainerProps> = props => {
   const [lastRect, setLastRect] = useState<[number, number]>([0, 0])
   useEffect(() => {
     if (!ref.current) return
-    const { width, height } = ref.current!.getBoundingClientRect()
+    const { width, height } = ref.current.getBoundingClientRect()
     if (width !== lastRect[0] || height !== lastRect[1]) {
       onResize && onResize({ width, height })
       setLastRect([width, height])

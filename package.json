@@ -36,12 +36,12 @@
     "vite-plugin-eslint": "^1.8.1"
   },
   "peerDependencies": {
-    "react": ">=16.0.0",
-    "react-dom": ">=16.0.0"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "author": {
     "name": "awey.chen",
-    "email": "awey.chen@mexc.com"
+    "email": "awey.chen@outlook.com"
   },
   "repository": {
     "type": "git",
