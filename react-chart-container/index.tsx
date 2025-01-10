@@ -15,9 +15,9 @@ export interface Rect {
 
 export interface Chart<GraphType, Data> {
   init (element: HTMLDivElement, data: Data): GraphType
-  update (graphRef: GraphType, data: Data): void
-  resize (graphRef: GraphType, data: Data, size: Rect): void
-  destroy (graphRef: GraphType): void
+  update (graph: GraphType, data: Data): void
+  resize (graph: GraphType, data: Data, size: Rect): void
+  destroy (graph: GraphType): void
 }
 
 // this hook will generate element ref, graph ref,
