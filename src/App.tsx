@@ -31,9 +31,9 @@ echarts.use([LineChart, CanvasRenderer, GridComponent])
 function App () {
   const [mockData, setMockData] = useState(getMockData())
 
-  const { elRef, onReady, onResize } = useReactChartContainer<echarts.ECharts, TimelineData, string>({
-    init: (el, d, _s) => {
-      // console.log('settings in init function:', s)
+  const { elRef, onReady, onResize } = useReactChartContainer<echarts.ECharts, TimelineData>({
+    init: (el, d) => {
+      console.log('init', el, d)
       const instance = echarts.init(el)
 
       instance.setOption({
@@ -56,15 +56,21 @@ function App () {
 
       return instance
     },
-    resize: (graphRef) => graphRef.current?.resize(),
-    update: (graphRef, d, _s) => {
-      // console.log('settings in update function:', s)
-      graphRef.current?.setOption({
+    update: (graph, d) => {
+      console.log('update:', d)
+      graph.setOption({
         series: transformData(d)
       }, { lazyUpdate: true, replaceMerge: 'series' })
     },
-    destroy: (graphRef, _el) => graphRef.current?.dispose()
-  }, mockData as TimelineData, 'hello')
+    resize: graph => {
+      console.log('resize', graph)
+      graph.resize()
+    },
+    destroy: graph => {
+      console.log('destroy', graph)
+      graph.dispose()
+    }
+  }, mockData as TimelineData)
 
   useEffect(() => {
     window.setInterval(() => {

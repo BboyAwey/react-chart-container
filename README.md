@@ -72,7 +72,7 @@ function App () {
   const [mockData, setMockData] = useState(getMockData())
 
   const { elRef, onReady, onResize } = useReactChartContainer<echarts.ECharts, TimelineData, string>({
-    init: (el, d, _s) => {
+    init: (el, d) => {
       // console.log('settings in init function:', s)
       const instance = echarts.init(el)
 
@@ -96,14 +96,13 @@ function App () {
 
       return instance
     },
-    resize: (graphRef) => graphRef.current?.resize(),
-    update: (graphRef, d, _s) => {
-      // console.log('settings in update function:', s)
-      graphRef.current?.setOption({
+    resize: (graph, size) => graph.resize(),
+    update: (graph, d) => {
+      graph.setOption({
         series: transformData(d)
       }, { lazyUpdate: true, replaceMerge: 'series' })
     },
-    destroy: (graphRef, _el) => graphRef.current?.dispose()
+    destroy: graph => graph.dispose()
   }, mockData as TimelineData, 'hello')
 
   useEffect(() => {
@@ -134,7 +133,7 @@ export default App
 
 | prop | type | required/default | description |
 | ---- | ---- | ---- | ---- |
-| `onReady` | `(size: Rect) => void` | - | the callback of container ready |
+| `onReady` | `() => void` | - | the callback of container ready |
 | `onResize` | `(size: Rect) =>  void` | - | the callback of container resizing |
 | `loading` | `boolean` | `false` | indecate loading status |
 | `className` | `string` | `''` | class name |
@@ -153,15 +152,15 @@ const useReactChartContainer: <
 ) => {
   elRef: MutableRefObject<null>;
   graphRef: GraphRef<GraphType>;
-  onResize: () => void;
+  onResize: (size: Rect) => void;
   onReady: () => void;
 }
 
-interface Chart<GraphType, Data, Settings = undefined> {
-  init (element: HTMLDivElement, data: Data, settings: Settings): GraphType
-  resize (graphRef: GraphRef<GraphType>, data: Data, settings: Settings): void
-  update (graphRef: GraphRef<GraphType>, data: Data, settings: Settings): void
-  destroy (graphRef: GraphRef<GraphType>, element: HTMLDivElement): void
+interface Chart<GraphType, Data> {
+  init (element: HTMLDivElement, data: Data): GraphType
+  resize (graph: GraphType, data: Data): void
+  update (graph: GraphType, data: Data): void
+  destroy (graph: GraphType): void
 }
 
 export type GraphRef<GraphType> = MutableRefObject<GraphType | null>
