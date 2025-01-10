@@ -71,7 +71,7 @@ function transformData (data: TimelineData) {
 function App () {
   const [mockData, setMockData] = useState(getMockData())
 
-  const { elRef, onReady, onResize } = useReactChartContainer<echarts.ECharts, TimelineData, string>({
+  const { elRef, onReady, onResize, onDestroy } = useReactChartContainer<echarts.ECharts, TimelineData, string>({
     init: (el, d) => {
       // console.log('settings in init function:', s)
       const instance = echarts.init(el)
@@ -116,6 +116,7 @@ function App () {
       <ReactChartContainer
         onReady={onReady}
         onResize={onResize}
+        onDestroy={onDestroy}
         spinIcon={<Spin />}
         loading={false}>
         <div ref={elRef} style={{ height: 400 }}></div>
@@ -135,6 +136,7 @@ export default App
 | ---- | ---- | ---- | ---- |
 | `onReady` | `() => void` | - | the callback of container ready |
 | `onResize` | `(size: Rect) =>  void` | - | the callback of container resizing |
+| `onDestroy` | `() =>  void` | - | the callback of container destroy |
 | `loading` | `boolean` | `false` | indecate loading status |
 | `className` | `string` | `''` | class name |
 
@@ -150,10 +152,11 @@ const useReactChartContainer: <
   data: Data,
   settings: Settings
 ) => {
-  elRef: MutableRefObject<null>;
-  graphRef: GraphRef<GraphType>;
-  onResize: (size: Rect) => void;
-  onReady: () => void;
+  elRef: MutableRefObject<null>
+  graphRef: GraphRef<GraphType>
+  onReady: () => void
+  onResize: (size: Rect) => void
+  onDestroy: () => void
 }
 
 interface Chart<GraphType, Data> {
