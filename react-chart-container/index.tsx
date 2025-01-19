@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useRef, useMemo, MutableRefObject, useState, PropsWithChildren, ReactNode } from 'react'
 import { addListener, removeListener } from 'resize-detector'
 import './style.css'
-import { useDebounce, useWatch } from './utils/hooks'
+import { useDebounce, useUnmount, useWatch } from './utils/hooks'
 import later from './utils/later'
 
 const DELAY = 200
@@ -80,11 +80,11 @@ export const ReactChartContainer: FC<ReactChartContainerProps> = props => {
         ref.current.getBoundingClientRect()
       )
     })
-
-    return () => {
-      props.onDestroy && props.onDestroy()
-    }
   }, [onReady, props])
+
+  useUnmount(() => {
+    props.onDestroy && props.onDestroy()
+  })
 
   // handle resize
   const onResize = useMemo(() => props.onResize, [props.onResize])

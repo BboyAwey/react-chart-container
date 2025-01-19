@@ -43,8 +43,8 @@ __metadata:
     vite-plugin-dts: "npm:^1.7.2"
     vite-plugin-eslint: "npm:^1.8.1"
   peerDependencies:
-    react: ">=16.0.0"
-    react-dom: ">=16.0.0"
+    react: ">=16"
+    react-dom: ">=16"
   languageName: unknown
   linkType: soft
 

@@ -31,7 +31,7 @@ echarts.use([LineChart, CanvasRenderer, GridComponent])
 function App () {
   const [mockData, setMockData] = useState(getMockData())
 
-  const { elRef, onReady, onResize } = useReactChartContainer<echarts.ECharts, TimelineData>({
+  const { elRef, onReady, onResize, onDestroy } = useReactChartContainer<echarts.ECharts, TimelineData>({
     init: (el, d) => {
       console.log('init', el, d)
       const instance = echarts.init(el)
@@ -78,15 +78,23 @@ function App () {
     }, 3000)
   }, [])
 
+  const [display, setDisplay] = useState(true)
+
   return (
     <div >
-      <ReactChartContainer
-        onReady={onReady}
-        onResize={onResize}
-        spinIcon={<Spin />}
-        loading={false}>
-        <div ref={elRef} style={{ height: 400 }}></div>
-      </ReactChartContainer>
+      {
+        display && <ReactChartContainer
+          onReady={onReady}
+          onResize={onResize}
+          onDestroy={onDestroy}
+          spinIcon={<Spin />}
+          loading={false}>
+          <div ref={elRef} style={{ height: 400 }}></div>
+        </ReactChartContainer>
+      }
+      <p>
+        <button onClick={() => setDisplay(!display)}>toggle chart display</button>
+      </p>
     </div>
   )
 }
